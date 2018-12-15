@@ -1,5 +1,11 @@
-import smtplib
-import time
+"""
+Mailrunner
+
+You must implement this to fit your use case. 
+Typically, this would be ran from crontab or modifed to run inside
+a while loop.
+
+"""
 import imaplib
 import email
 import datetime
@@ -9,11 +15,10 @@ SENDER = 'First Last <username@example.com>'
 
 SERVICE = 'someapp'
 
-ORG_EMAIL = "@gmail.com"
-FROM_EMAIL = "username" + ORG_EMAIL
-FROM_PWD = "password"
-SMTP_SERVER = "imap.gmail.com"
-SMTP_PORT = 993
+ORG_DOMAIN = "@gmail.com"
+EMAIL = "username" + ORG_DOMAIN
+PASS = "password"
+IMAP_SERVER = "imap.gmail.com"
 
 def read_email():
     """
@@ -24,8 +29,8 @@ def read_email():
     Read email from inbox and parse for the expected commands to start/kill the service
     """
     try:
-        mail = imaplib.IMAP4_SSL(SMTP_SERVER)
-        mail.login(FROM_EMAIL, FROM_PWD)
+        mail = imaplib.IMAP4_SSL(IMAP_SERVER)
+        mail.login(EMAIL, PASS)
         mail.select('inbox')
 
         mtype, data = mail.search(None, 'ALL')
